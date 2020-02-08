@@ -1,0 +1,28 @@
+{
+  "name": "pollenium-xeranthemum",
+  "version": "0.0.0",
+  "description": "",
+  "main": "node/index.js",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pollenium/xeranthemum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pollenium/xeranthemum/issues"
+  },
+  "homepage": "https://github.com/pollenium/xeranthemum#readme",
+  "devDependencies": {
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "pollenium-buttercup": "^19.1.0",
+    "pollenium-uvaursi": "^8.5.0",
+    "prompt-password": "^1.2.0"
+  }
+}
