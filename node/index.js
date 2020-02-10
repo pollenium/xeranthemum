@@ -39,14 +39,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var crypto_1 = require("crypto");
 var pollenium_buttercup_1 = require("pollenium-buttercup");
 var prompt_promise_1 = __importDefault(require("prompt-promise"));
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var pollenium_ilex_1 = require("pollenium-ilex");
 var pollenium_forgetmenot_1 = require("pollenium-forgetmenot");
+var crypto = require('crypto');
 var salt = pollenium_uvaursi_1.Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d');
-var iterations = Number.MAX_SAFE_INTEGER;
+var iterations = Math.pow(2, 32) - 1;
 var keyLength = 32;
 var digest = 'sha256';
 var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../addresses");
@@ -59,7 +59,7 @@ function computePrivateKey(struct) {
             have = pollenium_uvaursi_1.Uu.fromUtf8(haveUtf8.trim());
             knowAndhave = pollenium_uvaursi_1.Uu.genConcat([know, have]);
             return [2 /*return*/, new Promise(function (resolve, reject) {
-                    crypto_1.pbkdf2(knowAndhave.u, salt.u, iterations, keyLength, digest, function (error, derivedKey) {
+                    crypto.pbkdf2(knowAndhave.u, salt.u, iterations, keyLength, digest, function (error, derivedKey) {
                         if (error) {
                             reject(error);
                             return;

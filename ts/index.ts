@@ -1,12 +1,13 @@
-import { pbkdf2 } from 'crypto'
 import { Bytes32, Address } from 'pollenium-buttercup'
 import prompt from 'prompt-promise'
 import { Uu } from 'pollenium-uvaursi'
 import { Keypair } from 'pollenium-ilex'
 import { Forgetmenot } from 'pollenium-forgetmenot'
 
+const crypto = require('crypto')
+
 const salt = Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d')
-const iterations = Number.MAX_SAFE_INTEGER
+const iterations = Math.pow(2, 32) - 1
 const keyLength = 32
 const digest = 'sha256'
 
@@ -25,7 +26,7 @@ export async function computePrivateKey(struct: {
   const knowAndhave = Uu.genConcat([know, have])
 
   return new Promise<Bytes32>((resolve, reject) => {
-    pbkdf2(knowAndhave.u, salt.u, iterations, keyLength, digest, (error, derivedKey) => {
+    crypto.pbkdf2(knowAndhave.u, salt.u, iterations, keyLength, digest, (error, derivedKey) => {
       if (error) {
         reject(error)
         return
