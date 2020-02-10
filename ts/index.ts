@@ -3,7 +3,6 @@ import { Bytes32, Address } from 'pollenium-buttercup'
 import prompt from 'prompt-promise'
 import { Uu } from 'pollenium-uvaursi'
 import { Keypair } from 'pollenium-ilex'
-import fs from 'fs'
 import { Forgetmenot } from 'pollenium-forgetmenot'
 
 const salt = Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d')
