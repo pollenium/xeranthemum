@@ -4,13 +4,16 @@ import prompt from 'prompt-promise'
 import { Uu } from 'pollenium-uvaursi'
 import { Keypair } from 'pollenium-ilex'
 import fs from 'fs'
-
-const addressesPath = `${__dirname}/../addresses`
+import { Forgetmenot } from 'pollenium-forgetmenot'
 
 const salt = Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d')
 const iterations = Number.MAX_SAFE_INTEGER
 const keyLength = 32
 const digest = 'sha256'
+
+const forgetmenot = new Forgetmenot(`${__dirname}/../addresses`)
+
+
 
 export async function computePrivateKey(struct: {
   knowUtf8: string,
@@ -40,28 +43,16 @@ export async function promptComputePrivateKey(): Promise<Bytes32> {
   return computePrivateKey({ knowUtf8, haveUtf8 })
 }
 
-export function getAddressPath(name: string): string {
-  return `${addressesPath}/${name}.hex.txt`
-}
-
-export function saveAddress(struct: {
+export async function saveAddress(struct: {
     name: string,
     address: Address
-}): void {
+}): Promise<void> {
   const { name, address } = struct
-  if (getAddress(name) !== null) {
-    throw new Error(`${name} already exists`)
-  }
-  fs.writeFileSync(getAddressPath(name), address.uu.toHex(), 'utf8')
+  await forgetmenot.set(name, address)
 }
 
 export function getAddress(name: string): Address | null {
-  const addressPath = getAddressPath(name)
-  if (!fs.existsSync(addressPath)) {
-    return null
-  }
-  const addressHex = fs.readFileSync(addressPath, 'utf8')
-  return new Address(Uu.fromHexish(addressHex))
+  return new Address(forgetmenot.get(name))
 }
 
 export async function promptNew(): Promise<void> {

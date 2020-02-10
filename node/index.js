@@ -44,12 +44,12 @@ var pollenium_buttercup_1 = require("pollenium-buttercup");
 var prompt_promise_1 = __importDefault(require("prompt-promise"));
 var pollenium_uvaursi_1 = require("pollenium-uvaursi");
 var pollenium_ilex_1 = require("pollenium-ilex");
-var fs_1 = __importDefault(require("fs"));
-var addressesPath = __dirname + "/../addresses";
+var pollenium_forgetmenot_1 = require("pollenium-forgetmenot");
 var salt = pollenium_uvaursi_1.Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d');
 var iterations = Number.MAX_SAFE_INTEGER;
 var keyLength = 32;
 var digest = 'sha256';
+var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../addresses");
 function computePrivateKey(struct) {
     return __awaiter(this, void 0, void 0, function () {
         var knowUtf8, haveUtf8, know, have, knowAndhave;
@@ -88,25 +88,24 @@ function promptComputePrivateKey() {
     });
 }
 exports.promptComputePrivateKey = promptComputePrivateKey;
-function getAddressPath(name) {
-    return addressesPath + "/" + name + ".hex.txt";
-}
-exports.getAddressPath = getAddressPath;
 function saveAddress(struct) {
-    var name = struct.name, address = struct.address;
-    if (getAddress(name) !== null) {
-        throw new Error(name + " already exists");
-    }
-    fs_1["default"].writeFileSync(getAddressPath(name), address.uu.toHex(), 'utf8');
+    return __awaiter(this, void 0, void 0, function () {
+        var name, address;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    name = struct.name, address = struct.address;
+                    return [4 /*yield*/, forgetmenot.set(name, address)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
 }
 exports.saveAddress = saveAddress;
 function getAddress(name) {
-    var addressPath = getAddressPath(name);
-    if (!fs_1["default"].existsSync(addressPath)) {
-        return null;
-    }
-    var addressHex = fs_1["default"].readFileSync(addressPath, 'utf8');
-    return new pollenium_buttercup_1.Address(pollenium_uvaursi_1.Uu.fromHexish(addressHex));
+    return new pollenium_buttercup_1.Address(forgetmenot.get(name));
 }
 exports.getAddress = getAddress;
 function promptNew() {

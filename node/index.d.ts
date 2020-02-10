@@ -5,11 +5,10 @@ export declare function computePrivateKey(struct: {
     haveUtf8: string;
 }): Promise<Bytes32>;
 export declare function promptComputePrivateKey(): Promise<Bytes32>;
-export declare function getAddressPath(name: string): string;
 export declare function saveAddress(struct: {
     name: string;
     address: Address;
-}): void;
+}): Promise<void>;
 export declare function getAddress(name: string): Address | null;
 export declare function promptNew(): Promise<void>;
 export declare function promptFetchKeypair(name: string): Promise<Keypair>;
