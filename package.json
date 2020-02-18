@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "pollenium-buttercup": "^19.1.0",
-    "pollenium-forgetmenot": "^1.0.0",
+    "pollenium-forgetmenot": "^3.0.0",
     "pollenium-ilex": "^9.2.0",
     "pollenium-uvaursi": "^8.5.0",
     "prompt-promise": "^1.0.3"
