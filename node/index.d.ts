@@ -1,7 +1,5 @@
 import { Bytes32, Address } from 'pollenium-buttercup';
 import { Keypair } from 'pollenium-ilex';
-import { Forgetmenot } from 'pollenium-forgetmenot';
-export declare const xeranthemum: Forgetmenot;
 export declare function computePrivateKey(struct: {
     knowUtf8: string;
     haveUtf8: string;

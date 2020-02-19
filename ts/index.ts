@@ -11,7 +11,7 @@ const iterations = Math.pow(2, 32) - 1
 const keyLength = 32
 const digest = 'sha256'
 
-export const xeranthemum = new Forgetmenot(`${__dirname}/../addresses`)
+const xeranthemum = new Forgetmenot(`${__dirname}/../addresses`)
 
 export async function computePrivateKey(struct: {
   knowUtf8: string,
