@@ -49,7 +49,7 @@ var salt = pollenium_uvaursi_1.Uu.fromHexish('830a46600f948915d616413455e14c7d6d
 var iterations = Math.pow(2, 32) - 1;
 var keyLength = 32;
 var digest = 'sha256';
-var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../addresses");
+exports.xeranthemum = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../addresses");
 function computePrivateKey(struct) {
     return __awaiter(this, void 0, void 0, function () {
         var knowUtf8, haveUtf8, know, have, knowAndhave;
@@ -95,7 +95,7 @@ function saveAddress(struct) {
             switch (_a.label) {
                 case 0:
                     name = struct.name, address = struct.address;
-                    return [4 /*yield*/, forgetmenot.set(name, address)];
+                    return [4 /*yield*/, exports.xeranthemum.set(name, address)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -105,7 +105,7 @@ function saveAddress(struct) {
 }
 exports.saveAddress = saveAddress;
 function getAddress(name) {
-    return new pollenium_buttercup_1.Address(forgetmenot.get(name));
+    return new pollenium_buttercup_1.Address(exports.xeranthemum.get(name));
 }
 exports.getAddress = getAddress;
 function promptNew() {

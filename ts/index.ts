@@ -11,9 +11,7 @@ const iterations = Math.pow(2, 32) - 1
 const keyLength = 32
 const digest = 'sha256'
 
-const forgetmenot = new Forgetmenot(`${__dirname}/../addresses`)
-
-
+export const xeranthemum = new Forgetmenot(`${__dirname}/../addresses`)
 
 export async function computePrivateKey(struct: {
   knowUtf8: string,
@@ -48,11 +46,11 @@ export async function saveAddress(struct: {
     address: Address
 }): Promise<void> {
   const { name, address } = struct
-  await forgetmenot.set(name, address)
+  await xeranthemum.set(name, address)
 }
 
 export function getAddress(name: string): Address | null {
-  return new Address(forgetmenot.get(name))
+  return new Address(xeranthemum.get(name))
 }
 
 export async function promptNew(): Promise<void> {
