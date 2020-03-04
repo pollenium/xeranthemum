@@ -39,29 +39,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var __1 = require("../");
-var pollenium_forgetmenot_1 = require("pollenium-forgetmenot");
-var prompt_promise_1 = __importDefault(require("prompt-promise"));
-var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../../ts/users");
-function run() {
+var pollenium_uvaursi_1 = require("pollenium-uvaursi");
+var crypto_1 = __importDefault(require("crypto"));
+var pollenium_buttercup_1 = require("pollenium-buttercup");
+var salt = pollenium_uvaursi_1.Uu.fromHexish('830a46600f948915d616413455e14c7d6dc08845128cd7a5f93777af5601060d');
+var iterations = Math.pow(2, 32) - 1;
+var keyLength = 32;
+var digest = 'sha256';
+function computePrivateKey(struct) {
     return __awaiter(this, void 0, void 0, function () {
-        var name, keypair;
+        var knowUtf8, haveUtf8, know, have, knowAndhave;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, prompt_promise_1["default"]('Name: ')];
-                case 1:
-                    name = _a.sent();
-                    return [4 /*yield*/, __1.utils.promptComputeKeypair()];
-                case 2:
-                    keypair = _a.sent();
-                    forgetmenot.set({
-                        key: name,
-                        value: keypair.getAddress()
+            knowUtf8 = struct.knowUtf8, haveUtf8 = struct.haveUtf8;
+            know = pollenium_uvaursi_1.Uu.fromUtf8(knowUtf8.trim());
+            have = pollenium_uvaursi_1.Uu.fromUtf8(haveUtf8.trim());
+            knowAndhave = pollenium_uvaursi_1.Uu.genConcat([know, have]);
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    crypto_1["default"].pbkdf2(knowAndhave.u, salt.u, iterations, keyLength, digest, function (error, derivedKey) {
+                        if (error) {
+                            reject(error);
+                            return;
+                        }
+                        resolve(new pollenium_buttercup_1.Bytes32(derivedKey));
                     });
-                    return [2 /*return*/];
-            }
+                })];
         });
     });
 }
-exports.run = run;
-run();
+exports.computePrivateKey = computePrivateKey;

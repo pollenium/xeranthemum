@@ -39,29 +39,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var __1 = require("../");
-var pollenium_forgetmenot_1 = require("pollenium-forgetmenot");
+var computePrivateKey_1 = require("./computePrivateKey");
 var prompt_promise_1 = __importDefault(require("prompt-promise"));
-var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../../ts/users");
-function run() {
+function promptComputePrivateKey() {
     return __awaiter(this, void 0, void 0, function () {
-        var name, keypair;
+        var knowUtf8, haveUtf8;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, prompt_promise_1["default"]('Name: ')];
+                case 0: return [4 /*yield*/, prompt_promise_1["default"].password('Something you know: ')];
                 case 1:
-                    name = _a.sent();
-                    return [4 /*yield*/, __1.utils.promptComputeKeypair()];
+                    knowUtf8 = _a.sent();
+                    return [4 /*yield*/, prompt_promise_1["default"].password('Something you have: ')];
                 case 2:
-                    keypair = _a.sent();
-                    forgetmenot.set({
-                        key: name,
-                        value: keypair.getAddress()
-                    });
-                    return [2 /*return*/];
+                    haveUtf8 = _a.sent();
+                    return [2 /*return*/, computePrivateKey_1.computePrivateKey({ knowUtf8: knowUtf8, haveUtf8: haveUtf8 })];
             }
         });
     });
 }
-exports.run = run;
-run();
+exports.promptComputePrivateKey = promptComputePrivateKey;

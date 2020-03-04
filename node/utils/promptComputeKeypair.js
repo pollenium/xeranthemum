@@ -35,33 +35,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-var __1 = require("../");
-var pollenium_forgetmenot_1 = require("pollenium-forgetmenot");
-var prompt_promise_1 = __importDefault(require("prompt-promise"));
-var forgetmenot = new pollenium_forgetmenot_1.Forgetmenot(__dirname + "/../../ts/users");
-function run() {
+var pollenium_ilex_1 = require("pollenium-ilex");
+var promptComputePrivateKey_1 = require("./promptComputePrivateKey");
+function promptComputeKeypair() {
     return __awaiter(this, void 0, void 0, function () {
-        var name, keypair;
+        var privateKey;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, prompt_promise_1["default"]('Name: ')];
+                case 0: return [4 /*yield*/, promptComputePrivateKey_1.promptComputePrivateKey()];
                 case 1:
-                    name = _a.sent();
-                    return [4 /*yield*/, __1.utils.promptComputeKeypair()];
-                case 2:
-                    keypair = _a.sent();
-                    forgetmenot.set({
-                        key: name,
-                        value: keypair.getAddress()
-                    });
-                    return [2 /*return*/];
+                    privateKey = _a.sent();
+                    return [2 /*return*/, new pollenium_ilex_1.Keypair(privateKey)];
             }
         });
     });
 }
-exports.run = run;
-run();
+exports.promptComputeKeypair = promptComputeKeypair;

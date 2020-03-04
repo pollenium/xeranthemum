@@ -1,6 +1,6 @@
 // know: a
 // have: b
 
-import { promptFetchKeypair } from '../'
+import { utils } from '../'
 
-promptFetchKeypair('dummy')
+utils.promptComputeKeypair()
